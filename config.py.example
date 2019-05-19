@@ -1,0 +1,4 @@
+#Update this file and rename to config.py
+user = "username"
+password = "password"
+path = "/home/user/bitbucket-archive"

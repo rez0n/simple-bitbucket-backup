@@ -7,10 +7,11 @@ import shutil
 import datetime
 import os
 import errno
+import config
 
-bbuser = "username"
-bbpass = "password"
-storage = "/home/user/bitbucket-archive/"
+bbuser = config.user
+bbpass = config.password
+storage = config.path
 
 now = datetime.datetime.now().strftime("%Y-%m-%d-%H%M")
 
