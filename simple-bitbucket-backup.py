@@ -23,7 +23,7 @@ def req(url):
    request = urllib.request.Request(
       url=url, headers=headers)
    response = urllib.request.urlopen(request)
-   response_data = json.loads(response.read())
+   response_data = json.loads(response.read().decode('utf-8'))
    response.close()
    return response_data
 
