@@ -8,6 +8,7 @@ import datetime
 import os
 import errno
 import config
+import subprocess
 
 bbuser = config.user
 bbpass = config.password
@@ -88,6 +89,15 @@ def do_backup():
             backup_path + full_name + '/',
             branch + '-' + now + '.zip'
             )
-   
 
-do_backup()
+def do_clone():
+   print('cloning...')
+   repo_list = get_repo_list()
+   for full_name in repo_list.values():
+      print(full_name)
+      subprocess.run(["git", "clone", "https://"+bbuser+":"+bbpass+"@bitbucket.org:/"+full_name+".git", storage+"/"+full_name+".git"])
+
+if config.gitclone:
+   do_clone()
+else:
+   do_backup()
