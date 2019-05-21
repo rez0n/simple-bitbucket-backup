@@ -7,10 +7,12 @@ import shutil
 import datetime
 import os
 import errno
+import config
+import subprocess
 
-bbuser = "username"
-bbpass = "password"
-storage = "/home/user/bitbucket-archive/"
+bbuser = config.user
+bbpass = config.password
+storage = config.path
 
 now = datetime.datetime.now().strftime("%Y-%m-%d-%H%M")
 
@@ -22,7 +24,7 @@ def req(url):
    request = urllib.request.Request(
       url=url, headers=headers)
    response = urllib.request.urlopen(request)
-   response_data = json.loads(response.read())
+   response_data = json.loads(response.read().decode('utf-8'))
    response.close()
    return response_data
 
@@ -87,6 +89,15 @@ def do_backup():
             backup_path + full_name + '/',
             branch + '-' + now + '.zip'
             )
-   
 
-do_backup()
+def do_clone():
+   print('cloning...')
+   repo_list = get_repo_list()
+   for full_name in repo_list.values():
+      print(full_name)
+      subprocess.run(["git", "clone", "https://"+bbuser+":"+bbpass+"@bitbucket.org:/"+full_name+".git", storage+"/"+full_name+".git"])
+
+if config.gitclone:
+   do_clone()
+else:
+   do_backup()

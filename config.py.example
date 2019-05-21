@@ -1,0 +1,7 @@
+#Update this file and rename to config.py
+user = "username"
+password = "password"
+path = "/home/user/bitbucket-archive"
+
+#Set this to true to download the .git repository instead using git clone. NOTE: Requires git to be installed
+gitclone = False
